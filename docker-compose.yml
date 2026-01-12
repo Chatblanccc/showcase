@@ -38,12 +38,7 @@ services:
       - frontend
 
   frontend:
-    build: 
-      context: .
-      dockerfile: frontend/Dockerfile
-      # 添加构建参数，强制重新构建
-      args:
-        CACHEBUST: ${CACHEBUST:-1}
+    build: ./frontend
     volumes:
       - frontend_build:/usr/share/nginx/html
     command: echo "Frontend built" # 这是一个一次性容器，只负责构建并把文件放到 volume 里
