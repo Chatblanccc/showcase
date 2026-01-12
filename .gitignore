@@ -45,7 +45,8 @@ backend/static/uploads/
 *.sqlite3
 
 # Alembic
-backend/alembic/versions/*.py
+# Do NOT ignore migration scripts!
+!backend/alembic/versions/*.py
 !backend/alembic/versions/.gitkeep
 
 # Logs
