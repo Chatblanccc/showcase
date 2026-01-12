@@ -15,7 +15,9 @@ export const Admin = () => {
         const formData = new FormData(e.currentTarget);
         
         try {
-            const res = await fetch("http://localhost:8000/api/projects/", {
+            // 在生产环境中，API请求应该发送到 /api (相对路径)，由 Nginx 转发
+            // 而不是 http://localhost:8000
+            const res = await fetch("/api/projects/", {
                 method: "POST",
                 body: formData,
             });
