@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: your_secure_password # 请修改为强密码
+      POSTGRES_DB: showcase
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  backend:
+    build: ./backend
+    restart: always
+    command: sh -c "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000"
+    environment:
+      PROJECT_NAME: "Showcase Platform"
+      POSTGRES_SERVER: db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: your_secure_password # 与 db 保持一致
+      POSTGRES_DB: showcase
+    depends_on:
+      - db
+    volumes:
+      - ./backend/static:/app/static
+
+  nginx:
+    image: nginx:alpine
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./deploy/nginx.conf:/etc/nginx/conf.d/default.conf
+      # 将前端构建产物挂载给 Nginx (这里采用多阶段构建的 frontend 镜像)
+      - frontend_build:/usr/share/nginx/html
+    depends_on:
+      - backend
+      - frontend
+
+  frontend:
+    build: ./frontend
+    volumes:
+      - frontend_build:/usr/share/nginx/html
+    command: echo "Frontend built" # 这是一个一次性容器，只负责构建并把文件放到 volume 里
+
+volumes:
+  postgres_data:
+  frontend_build:
