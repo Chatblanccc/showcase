@@ -18,7 +18,20 @@ docker --version
 docker compose version
 ```
 
-### 1.2 上传代码
+### 1.2 配置镜像加速 (解决拉取超时)
+由于网络原因，国内服务器拉取 Docker 镜像可能失败。请执行以下命令应用我们准备好的加速配置：
+
+```bash
+# 创建目录
+sudo mkdir -p /etc/docker
+# 将项目中的配置文件复制到系统配置中 (假设你在项目根目录)
+sudo cp deploy/daemon.json /etc/docker/daemon.json
+# 重启 Docker 生效
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+```
+
+### 1.3 上传代码
 将整个项目目录上传到服务器（例如 `/root/showcase`）。你可以使用 Git 或 SCP/SFTP 工具。
 
 ```bash
