@@ -1,6 +1,8 @@
 import { IProject } from "@/types/project";
 
-// 在生产环境使用相对路径，由 Nginx 转发；开发环境通过 Vite 代理
+// 动态判断环境：如果是开发环境(localhost)，用 /api 会被 Vite 代理
+// 如果是生产环境，用 /api 会被 Nginx 转发
+// 只要不写死 http://localhost:8000，就能适配所有环境
 const API_URL = "/api";
 
 export const getProjects = async (): Promise<IProject[]> => {

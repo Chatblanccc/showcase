@@ -16,7 +16,7 @@ export const ProjectCard = ({ project, className }: ProjectCardProps) => {
             <div className="aspect-video w-full bg-gray-100 relative overflow-hidden">
                 {project.cover_image ? (
                     <img 
-                        src={`${project.cover_image}`} 
+                        src={project.cover_image} 
                         alt={project.title} 
                         className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                     />

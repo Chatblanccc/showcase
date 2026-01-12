@@ -36,7 +36,7 @@ sudo systemctl restart docker
 
 ```bash
 # 示例：使用 Git (推荐)
-git clone https://github.com/your-repo/showcase.git /root/showcase
+git clone https://github.com/Chatblanccc/showcase.git /root/showcase
 ```
 
 ## 2. 配置
